@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Product List</title>
+  <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+<h1>Product List</h1>
+
+<form action="#" method="get">
+  <label for="categoryId">Category:</label>
+  <select id="categoryId" name="categoryId">
+    <option value="">All</option>
+    <option th:each="category : ${categories}"
+            th:value="${category.id}"
+            th:text="${category.name}"></option>
+  </select>
+
+  <label for="minPrice">Min Price:</label>
+  <input type="number" id="minPrice" name="minPrice" step="0.01" />
+
+  <label for="maxPrice">Max Price:</label>
+  <input type="number" id="maxPrice" name="maxPrice" step="0.01" />
+
+  <button type="submit">Filter</button>
+</form>
+
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Price</th>
+    <th>Photo</th>
+    <th>Category</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="product : ${page.content}">
+    <td th:text="${product.id}"></td>
+    <td th:text="${product.name}"></td>
+    <td th:text="${product.price}"></td>
+    <td>
+      <img th:src="${product.photo}" alt="Product Photo" style="width: 100px; height: auto;" />
+    </td>
+    <td th:text="${product.category.name}"></td>
+  </tr>
+  <tr th:if="${#lists.isEmpty(page.content)}">
+    <td colspan="4">No products found.</td>
+  </tr>
+  </tbody>
+</table>
+
+<!-- Pagination Links -->
+<div>
+  <a th:if="${page.hasPrevious()}"
+     th:href="@{/products/list(page=${page.previousPageable.pageNumber}, size=${page.size})}" class="pagination-button">
+    Previous
+  </a>
+  <span th:text="${page.number + 1}"></span>
+  <a th:if="${page.hasNext()}"
+     th:href="@{/products/list(page=${page.nextPageable.pageNumber}, size=${page.size})}" class="pagination-button">
+    Next
+  </a>
+</div>
+
+<a class="back-button" th:href="@{/main}">Back</a>
+</body>
+</html>

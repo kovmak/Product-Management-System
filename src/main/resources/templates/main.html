@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Main Page</title>
+  <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+<h1>Welcome to the Product Management Application</h1>
+<div class="nav-container">
+  <div class="nav-group">
+    <a class="nav-button view-button" th:href="@{/products/list}">View Products</a>
+    <a class="nav-button add-button" th:href="@{/products/add}">Add Product</a>
+  </div>
+  <div class="nav-group">
+    <a class="nav-button view-button" th:href="@{/categories}">View Categories</a>
+    <a class="nav-button add-button" th:href="@{/categories/add}">Add Categories</a>
+  </div>
+</div>
+</body>
+</html>
